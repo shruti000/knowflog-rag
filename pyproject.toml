@@ -1,0 +1,49 @@
+[project]
+name = "knowflow"
+version = "0.1.0"
+description = "Production-oriented enterprise RAG ingestion foundation"
+requires-python = ">=3.11"
+dependencies = [
+    "azure-identity>=1.17.0",
+    "azure-storage-blob>=12.22.0",
+    "pymupdf>=1.24.0",
+    "pillow>=10.4.0",
+    "pytesseract>=0.3.13",
+    "python-dotenv>=1.0.1",
+    "google-genai>=2.33.0",
+    "azure-search-documents>=12.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.0",
+    "ruff>=0.6.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+#setup tools ise used for isntalling of packicng it a s bundl;e
+[build-system]
+requires = ["setuptools>=68"]              #requires: Install setuptools version 68 or higher when building.
+build-backend = "setuptools.build_meta"   #build-backend: Use setuptools as the build backend.
+
+[tool.setuptools]
+py-modules = ["main", "config"]   #Our root-level main.py is a Python module that must be included in the package.
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "indexing",
+    "indexing.*",
+    "ingestion",
+    "ingestion.*",
+    "embeddings",
+    "embeddings.*",
+]
+namespaces = false
